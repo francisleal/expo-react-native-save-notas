@@ -3,22 +3,15 @@ import Constants from 'expo-constants'
 
 const primaryColor = '#04d361';
 const branco = '#fff';
-const card = '#151317e3'
-
 
 const escuro = '#100f12d9';
 const cinza = '#28272c';
 
 export default StyleSheet.create({
 
-    image: {
-        flex: 1,
-        resizeMode: "cover",
-    },
-
     container: {
         flex: 1,
-        backgroundColor: 'black'
+        backgroundColor: 'black',
     },
 
     header: {
@@ -72,8 +65,8 @@ export default StyleSheet.create({
     form: {
         borderColor: cinza,
         backgroundColor: escuro,
-        
-        marginTop: 64,
+
+        marginTop: '20%',
         borderWidth: 1,
         borderRadius: 3,
     },
@@ -91,10 +84,6 @@ export default StyleSheet.create({
         color: branco,
         textAlignVertical: 'top',
         padding: 24,
-        
-        // borderColor: cinza,
-        // borderRadius: 3,
-        // borderWidth: 1,
     },
 
     footer: {

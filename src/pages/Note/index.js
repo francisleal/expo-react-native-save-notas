@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import styles from './styles';
 
-function Note() {
+function Note({ route }) {
 
     const navigation = useNavigation();
 
@@ -25,7 +25,7 @@ function Note() {
                 </TouchableOpacity>
 
                 <View style={styles.headerText}>
-                    <Text style={styles.headerText1}>Adicionar</Text>
+                    <Text style={styles.headerText1}>{route.params.titulo}</Text>
                     <Text style={styles.headerText2}>anotação</Text>
                 </View>
 
@@ -42,7 +42,7 @@ function Note() {
 
                     <TextInput
                         multiline={true}
-                        numberOfLines={20}
+                        numberOfLines={15}
                         style={styles.textArea}
                         placeholder="Anotação"
                     />

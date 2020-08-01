@@ -58,6 +58,7 @@ export default StyleSheet.create({
     section: {
         paddingHorizontal: 8,
         height: '90%',
+        marginTop: 16,
     },
 
     cardContainer: {
@@ -75,7 +76,7 @@ export default StyleSheet.create({
     },
 
     cardText: {
-        color: '#999'
+        color: '#999',
     },
 
     footer: {

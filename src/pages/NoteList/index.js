@@ -1,24 +1,131 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Text, View, TouchableOpacity, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+
+import { Text, View, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import styles from './styles';
 
 function NoteList() {
 
+
+    const DATA = [
+        {
+            id: 'aasdf242354',
+            titulo: 'nota 1',
+            anotacao: 'descricao 1'
+        },
+        {
+            id: '234523qwfsdf',
+            titulo: 'nota 2',
+            anotacao: 'descricao 2'
+        },
+        {
+            id: 'asdfs34535',
+            titulo: 'nota 3',
+            anotacao: 'descricao 3'
+        }
+    ]
+
+    const anotacoes = [
+        {
+            id: 'a',
+            note: [
+                {
+                    id: 'aasdf242354',
+                    titulo: 'nota 1',
+                    anotacao: 'descricao 1'
+                },
+                {
+                    id: '234523qwfsdf',
+                    titulo: 'nota 2',
+                    anotacao: 'descricao 2'
+                },
+                {
+                    id: 'asdfs34535',
+                    titulo: 'nota 3',
+                    anotacao: 'descricao 3'
+                }
+            ],
+        },
+        {
+            id: 'email@email.com',
+            note: [
+                {
+                    id: 'aasdf242354',
+                    titulo: 'nota 1',
+                    anotacao: 'descricao 1'
+                },
+                {
+                    id: '234523qwfsdf',
+                    titulo: 'nota 2',
+                    anotacao: 'descricao 2'
+                },
+                {
+                    id: 'asdfs34535',
+                    titulo: 'nota 3',
+                    anotacao: 'descricao 3'
+                }
+            ],
+        },
+        {
+            id: 'ciclano@email.com',
+            note: [
+                {
+                    id: 'aasdf242354',
+                    titulo: 'nota 1',
+                    anotacao: 'descricao 1'
+                },
+                {
+                    id: '234523qwfsdf',
+                    titulo: 'nota 2',
+                    anotacao: 'descricao 2'
+                },
+                {
+                    id: 'asdfs34535',
+                    titulo: 'nota 3',
+                    anotacao: 'descricao 3'
+                }
+            ],
+        }
+    ];
+
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        listarNotas();
+    }, []);
+
+
     const navigation = useNavigation();
+
+    const listarNotas = async () => {
+        try {
+            const usuarioLogado = await AsyncStorage.getItem('usuarioLogadoSaveNote');
+
+            let minhasAnotacoes = anotacoes.filter(notas => notas.id = JSON.parse(usuarioLogado));
+
+            setList(minhasAnotacoes[0].note);
+
+        } catch (error) {
+            Alert.alert(error);
+        }
+    }
 
     function navigateSair() {
         navigation.navigate('Login');
     }
 
-    function navigateNote() {
-        navigation.navigate('Note');
+    function navigateNoteEditar() {
+        navigation.navigate('Note', { titulo: 'Editar' });
+    }
+
+    function navigateNoteAdicionar() {
+        navigation.navigate('Note', { titulo: 'Adicionar' });
     }
 
     let numberGrid = 3
-
 
     return (
 
@@ -36,21 +143,23 @@ function NoteList() {
 
             <View style={styles.section}>
                 <FlatList
-                    data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]}
-
+                    data={list}
                     numColumns={numberGrid}
-                    keyExtractor={note => String(note)}
+                    keyExtractor={note => note.id}
                     showsVerticalScrollIndicator={false}
-                    renderItem={() => (
+                    renderItem={({ item: note }) => (
 
-                        <TouchableOpacity onPress={navigateNote}>
+                        <TouchableOpacity onPress={navigateNoteEditar}>
                             <View style={styles.cardContainer}>
                                 <View >
-                                    <Text style={styles.cardTitle}>Minha anotação do dia</Text>
+                                    <Text style={styles.cardTitle}>{note.titulo}</Text>
                                 </View>
                                 <View style={styles.cardBody}>
-                                    <Text style={styles.cardText}>Lorem ipsum sit amet dolor conserctetur</Text>
-
+                                    <Text
+                                        numberOfLines={4}
+                                        style={styles.cardText}>
+                                        {note.anotacao}
+                                    </Text>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -60,7 +169,7 @@ function NoteList() {
             </View>
 
             <View style={styles.footer}>
-                <TouchableOpacity onPress={navigateNote}>
+                <TouchableOpacity onPress={navigateNoteAdicionar}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>+</Text>
                     </View>
