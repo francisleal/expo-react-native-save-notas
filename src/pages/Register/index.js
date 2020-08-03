@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
+
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { Text, View, TextInput, ImageBackground, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 import immagemFundo from "../../assets/bg.png";
 
@@ -75,10 +76,10 @@ function Register() {
             const registro = await AsyncStorage.getItem('registerSaveNote');
 
             if (registro !== null) {
-                console.log('Pesquisar registros -', JSON.parse(registro));
+                Alert.alert('Pesquisar registros -', registro);
             }
         } catch (e) {
-            console.log(error);
+            console.log(e);
         }
     }
 

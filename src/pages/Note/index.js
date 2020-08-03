@@ -1,7 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
-import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Text, View, TouchableOpacity, TextInput, Image } from 'react-native';
+
+import IconVoltar from '../../assets/icon/icone.png'
 
 import styles from './styles';
 
@@ -17,11 +20,11 @@ function Note({ route }) {
 
         <View style={styles.container}>
 
-            <StatusBar backgroundColor="#fff" />
+            <StatusBar style={"auto"} />
 
             <View style={styles.header}>
                 <TouchableOpacity style={styles.buttonVoltar} onPress={navigateSair}>
-                    <Text style={styles.buttonVoltarText}>v</Text>
+                    <Image source={IconVoltar} style={styles.iconVoltar}></Image>
                 </TouchableOpacity>
 
                 <View style={styles.headerText}>

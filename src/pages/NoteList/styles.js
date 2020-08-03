@@ -46,13 +46,9 @@ export default StyleSheet.create({
         width: '15%',
     },
 
-    buttonVoltarText: {
-        color: primaryColor,
-        fontSize: 24,
-        fontWeight: 'bold',
-        transform: [
-            { rotate: "90deg" }
-        ],
+    iconVoltar: {
+        width: 16,
+        height: 16,
     },
 
     section: {

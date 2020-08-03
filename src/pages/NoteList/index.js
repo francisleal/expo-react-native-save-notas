@@ -1,9 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
 
-import { Text, View, TouchableOpacity, FlatList, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Text, View, TouchableOpacity, FlatList, Alert, Image } from 'react-native';
+
+import IconVoltar from '../../assets/icon/icone.png'
 
 import styles from './styles';
 
@@ -41,11 +43,6 @@ function NoteList() {
                     id: '234523qwfsdf',
                     titulo: 'nota 2',
                     anotacao: 'descricao 2'
-                },
-                {
-                    id: 'asdfs34535',
-                    titulo: 'nota 3',
-                    anotacao: 'descricao 3'
                 }
             ],
         },
@@ -56,36 +53,6 @@ function NoteList() {
                     id: 'aasdf242354',
                     titulo: 'nota 1',
                     anotacao: 'descricao 1'
-                },
-                {
-                    id: '234523qwfsdf',
-                    titulo: 'nota 2',
-                    anotacao: 'descricao 2'
-                },
-                {
-                    id: 'asdfs34535',
-                    titulo: 'nota 3',
-                    anotacao: 'descricao 3'
-                }
-            ],
-        },
-        {
-            id: 'ciclano@email.com',
-            note: [
-                {
-                    id: 'aasdf242354',
-                    titulo: 'nota 1',
-                    anotacao: 'descricao 1'
-                },
-                {
-                    id: '234523qwfsdf',
-                    titulo: 'nota 2',
-                    anotacao: 'descricao 2'
-                },
-                {
-                    id: 'asdfs34535',
-                    titulo: 'nota 3',
-                    anotacao: 'descricao 3'
                 }
             ],
         }
@@ -131,11 +98,11 @@ function NoteList() {
 
         <View style={styles.container}>
 
-            <StatusBar backgroundColor="#fff" />
+            <StatusBar style={"auto"} />
 
             <View style={styles.header}>
                 <TouchableOpacity style={styles.buttonVoltar} onPress={navigateSair}>
-                    <Text style={styles.buttonVoltarText}>v</Text>
+                    <Image source={IconVoltar} style={styles.iconVoltar}></Image>
                 </TouchableOpacity>
 
                 <Text style={styles.headerText}>Anotações</Text>
