@@ -19,8 +19,10 @@ function Login() {
     const handleLogin = async () => {
         const input = { email, senha };
 
-        if (!input.email || !input.senha) {
-            Alert.alert('Campo em branco')
+        if (!input.email) {
+            Alert.alert('Informe seu e-mail');
+        } else if (!input.senha) {
+            Alert.alert('Informe sua senha');
         } else {
             let usuarios = [];
 

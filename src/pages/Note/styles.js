@@ -58,10 +58,27 @@ export default StyleSheet.create({
         height: '90%',
     },
 
+    fieldset: {
+        flexDirection: 'row',
+
+        justifyContent: 'space-between',
+    },
+
+    label: {
+        width: '12%',
+    },
+
+    iconExcluir: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        color: 'red',
+        textAlign: 'center',
+        marginTop: 5,
+    },
+
     form: {
         borderColor: cinza,
         backgroundColor: escuro,
-
         marginTop: '20%',
         borderWidth: 1,
         borderRadius: 3,
@@ -69,8 +86,7 @@ export default StyleSheet.create({
 
     input: {
         color: primaryColor,
-        borderColor: cinza,
-        width: '100%',
+        width: '85%',
         height: 60,
         paddingHorizontal: 24,
         borderRadius: 3,

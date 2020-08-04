@@ -98,7 +98,7 @@ function Register() {
     }
 
     function navigateNoteList() {
-        navigation.navigate('NoteList');
+        navigation.navigate('NoteList', { titulo: 'Listar' });
     }
 
     return (

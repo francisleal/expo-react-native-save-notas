@@ -11,7 +11,7 @@ import styles from './styles';
 
 function NoteList({ route }) {
 
-    const [list, setList] = useState('');
+    const [list, setList] = useState([]);
 
     const navigation = useNavigation();
 
@@ -27,14 +27,16 @@ function NoteList({ route }) {
             const chaveAsyncaStorage = `dbSaveNote${usuarioLogado}`.replace(/"/g, '').replace('.', '');
 
             const dbsavenote = await AsyncStorage.getItem(chaveAsyncaStorage);
-            // const dbsavenote = await AsyncStorage.removeItem(chaveAsyncaStorage);
 
             if (dbsavenote === null) {
-                Alert.alert('Crie suas Anotações');
+                console.log('Crie suas Anotações');
             } else {
                 setList(JSON.parse(dbsavenote));
             }
-            console.log(dbsavenote);
+
+            // await AsyncStorage.removeItem(chaveAsyncaStorage);
+
+            console.log('handleListarNotas', JSON.parse(dbsavenote));            
 
         } catch (error) {
             Alert.alert(error);

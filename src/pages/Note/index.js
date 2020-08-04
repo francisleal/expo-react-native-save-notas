@@ -37,14 +37,12 @@ function Note({ route }) {
 
             const dbsavenote = await AsyncStorage.getItem(chaveAsyncaStorage);
 
+            setChaveDBUsuarioLogado(chaveAsyncaStorage);
+
             if (dbsavenote === null) {
                 await AsyncStorage.setItem(chaveAsyncaStorage, '[]');
-
-                console.log(`banco criado com sucesso`);
-
             } else {
                 setDBAsyncStorage(JSON.parse(dbsavenote));
-                setChaveDBUsuarioLogado(chaveAsyncaStorage);
             }
 
         } catch (error) {
@@ -60,16 +58,19 @@ function Note({ route }) {
         } else {
             try {
 
-                dbAsyncStorage.push(nota);
-
-                await AsyncStorage.setItem(dbChaveUsuarioLogado, JSON.stringify(dbAsyncStorage));
-
-                navigation.navigate('NoteList', { titulo: 'Listar' });
+                if (route.params.titulo === 'Editar') {
+                    await AsyncStorage.setItem(dbChaveUsuarioLogado, JSON.stringify(nota))
+                } else {
+                    dbAsyncStorage.push(nota);
+                    await AsyncStorage.setItem(dbChaveUsuarioLogado, JSON.stringify(dbAsyncStorage));
+                }
 
             } catch (error) {
                 console.log('dbSaveNote', error);
             }
         }
+
+        navigation.navigate('NoteList', { titulo: 'Listar' });
     }
 
     const editar = () => {
@@ -79,14 +80,23 @@ function Note({ route }) {
         }
     }
 
-    const handleSaveNote = () => { dbSaveNote(input) };
+    const handleSaveNote = () => {
+        dbSaveNote(input);
+    };
 
     const handleEditNote = () => {
-        
+        let editar = dbAsyncStorage.filter(nota => nota.id !== route.params.editar.id);
+        editar.push(input);
+
+        dbSaveNote(editar);
     }
 
-    function navigateSair() {
-        navigation.navigate('NoteList');
+    const handleExcluirNote = () => {
+        dbSaveNote(dbAsyncStorage.filter(nota => nota.id !== route.params.editar.id));
+    }
+
+    const navigateSair = () => {
+        navigation.navigate('NoteList', { titulo: 'Listar' });
     }
 
     return (
@@ -109,13 +119,25 @@ function Note({ route }) {
             <View style={styles.section}>
 
                 <View style={styles.form}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Título"
-                        placeholderTextColor="#04d361"
-                        value={titulo}
-                        onChangeText={titulo => setTitulo(titulo)}
-                    />
+
+                    <View style={styles.fieldset}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Título"
+                            placeholderTextColor="#04d361"
+                            value={titulo}
+                            onChangeText={titulo => setTitulo(titulo)}
+                        />
+
+                        {
+                            route.params.titulo === 'Editar' &&
+                            <TouchableOpacity style={styles.label} onPress={() => handleExcluirNote()}>
+                                <Text style={styles.iconExcluir}>x</Text>
+                            </TouchableOpacity>
+                        }
+
+
+                    </View>
 
                     <TextInput
                         multiline={true}
@@ -130,17 +152,21 @@ function Note({ route }) {
             </View>
 
             <View style={styles.footer}>
-                <TouchableOpacity onPress={handleSaveNote}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>+</Text>
-                    </View>
-                </TouchableOpacity>
+                {
+                    route.params.titulo === 'Editar' ?
 
-                <TouchableOpacity onPress={handleEditNote}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>save</Text>
-                    </View>
-                </TouchableOpacity>
+                        <TouchableOpacity onPress={handleEditNote}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>edit</Text>
+                            </View>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity onPress={handleSaveNote}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>+</Text>
+                            </View>
+                        </TouchableOpacity>
+                }
             </View>
         </View>
     );
