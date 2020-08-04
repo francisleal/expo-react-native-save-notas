@@ -9,90 +9,49 @@ import IconVoltar from '../../assets/icon/icone.png'
 
 import styles from './styles';
 
-function NoteList() {
+function NoteList({ route }) {
 
-
-    const DATA = [
-        {
-            id: 'aasdf242354',
-            titulo: 'nota 1',
-            anotacao: 'descricao 1'
-        },
-        {
-            id: '234523qwfsdf',
-            titulo: 'nota 2',
-            anotacao: 'descricao 2'
-        },
-        {
-            id: 'asdfs34535',
-            titulo: 'nota 3',
-            anotacao: 'descricao 3'
-        }
-    ]
-
-    const anotacoes = [
-        {
-            id: 'a',
-            note: [
-                {
-                    id: 'aasdf242354',
-                    titulo: 'nota 1',
-                    anotacao: 'descricao 1'
-                },
-                {
-                    id: '234523qwfsdf',
-                    titulo: 'nota 2',
-                    anotacao: 'descricao 2'
-                }
-            ],
-        },
-        {
-            id: 'email@email.com',
-            note: [
-                {
-                    id: 'aasdf242354',
-                    titulo: 'nota 1',
-                    anotacao: 'descricao 1'
-                }
-            ],
-        }
-    ];
-
-    const [list, setList] = useState([]);
-
-    useEffect(() => {
-        listarNotas();
-    }, []);
-
+    const [list, setList] = useState('');
 
     const navigation = useNavigation();
 
-    const listarNotas = async () => {
+    const numberGrid = 3
+
+    useEffect(() => {
+        handleListarNotas();
+    }, [route.params]);
+
+    const handleListarNotas = async () => {
         try {
             const usuarioLogado = await AsyncStorage.getItem('usuarioLogadoSaveNote');
+            const chaveAsyncaStorage = `dbSaveNote${usuarioLogado}`.replace(/"/g, '').replace('.', '');
 
-            let minhasAnotacoes = anotacoes.filter(notas => notas.id = JSON.parse(usuarioLogado));
+            const dbsavenote = await AsyncStorage.getItem(chaveAsyncaStorage);
+            // const dbsavenote = await AsyncStorage.removeItem(chaveAsyncaStorage);
 
-            setList(minhasAnotacoes[0].note);
+            if (dbsavenote === null) {
+                Alert.alert('Crie suas Anotações');
+            } else {
+                setList(JSON.parse(dbsavenote));
+            }
+            console.log(dbsavenote);
 
         } catch (error) {
             Alert.alert(error);
         }
     }
 
-    function navigateSair() {
+    const navigateSair = () => {
         navigation.navigate('Login');
     }
 
-    function navigateNoteEditar() {
-        navigation.navigate('Note', { titulo: 'Editar' });
-    }
-
-    function navigateNoteAdicionar() {
+    const navigateNoteAdicionar = () => {
         navigation.navigate('Note', { titulo: 'Adicionar' });
     }
 
-    let numberGrid = 3
+    const navigateNoteEditar = (editar) => {
+        navigation.navigate('Note', { titulo: 'Editar', editar });
+    }
 
     return (
 
@@ -105,7 +64,10 @@ function NoteList() {
                     <Image source={IconVoltar} style={styles.iconVoltar}></Image>
                 </TouchableOpacity>
 
-                <Text style={styles.headerText}>Anotações</Text>
+                <View style={styles.headerText}>
+                    <Text style={styles.headerText1}>{route.params.titulo}</Text>
+                    <Text style={styles.headerText2}>anotação</Text>
+                </View>
             </View>
 
             <View style={styles.section}>
@@ -116,7 +78,7 @@ function NoteList() {
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item: note }) => (
 
-                        <TouchableOpacity onPress={navigateNoteEditar}>
+                        <TouchableOpacity onPress={() => navigateNoteEditar(note)}>
                             <View style={styles.cardContainer}>
                                 <View >
                                     <Text style={styles.cardTitle}>{note.titulo}</Text>

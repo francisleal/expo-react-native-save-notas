@@ -67,7 +67,7 @@ function Login() {
     }
 
     function navigateNote() {
-        navigation.navigate('NoteList');
+        navigation.navigate('NoteList', { titulo: 'Listar' });
     }
 
     return (

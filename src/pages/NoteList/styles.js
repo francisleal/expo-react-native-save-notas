@@ -32,11 +32,22 @@ export default StyleSheet.create({
     },
 
     headerText: {
+        flexDirection: 'row',
+        justifyContent: "center",
+        width: '70%',
+    },
+
+    headerText1: {
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginRight: 8,
+    },
+
+    headerText2: {
         color: primaryColor,
         fontWeight: 'bold',
         fontSize: 18,
-        textAlign: "center",
-        width: '70%',
     },
 
     buttonVoltar: {
