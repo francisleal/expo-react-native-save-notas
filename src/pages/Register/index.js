@@ -32,12 +32,21 @@ function Register() {
                 try {
 
                     const registro = await AsyncStorage.getItem('registerSaveNote');
-
+                    
                     if (registro === null) {
                         salvarRegistro(data);
                     } else {
                         usuarios = JSON.parse(registro);
-                        salvarRegistro(data);
+
+                        let usuarioFiltrado = usuarios.filter(usuario => usuario.email === data.email);
+
+                        if (usuarioFiltrado.length == 0) {
+                            salvarRegistro(data);
+                        } else if (data.email === usuarioFiltrado[0].email) {
+                            alert(`Usuário "${usuarioFiltrado[0].email}" já existe, crie uma nova conta ou recupere sua senha`);
+                        } else {
+                            salvarRegistro(data);
+                        }
                     }
 
                     async function salvarRegistro(novoUsuario) {
@@ -68,28 +77,6 @@ function Register() {
             await AsyncStorage.setItem('usuarioLogadoSaveNote', JSON.stringify(usuario));
         } catch (error) {
             Alert.alert('Error - usuario logado');
-        }
-    }
-
-    const getData = async () => {
-        try {
-            const registro = await AsyncStorage.getItem('registerSaveNote');
-
-            if (registro !== null) {
-                Alert.alert('Pesquisar registros -', registro);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    const remove = async () => {
-        try {
-            await AsyncStorage.removeItem('registerSaveNote');
-
-            console.log('remove sucesso');
-        } catch (error) {
-            console.log(error);
         }
     }
 
@@ -144,14 +131,6 @@ function Register() {
 
                 <TouchableOpacity onPress={navigateLogin}>
                     <Text style={styles.voltar}>Voltar</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={getData}>
-                    <Text style={styles.voltar}>Pesquisar</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={remove}>
-                    <Text style={styles.voltar}>Remove</Text>
                 </TouchableOpacity>
 
             </View>

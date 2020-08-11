@@ -10,6 +10,7 @@ export default StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: "cover",
+        backgroundColor: "black",
     },
 
     container: {
@@ -82,5 +83,26 @@ export default StyleSheet.create({
     registerText2: {
         color: primaryColor,
         fontSize: 14,
+    },
+
+    remember: {
+        alignItems: 'center',
+        flexDirection: "row",
+        marginTop: 16,
+    },
+
+    viewCheckBox: {
+        borderWidth: 1,
+        borderColor: primaryColor,
+        width: 21,
+        height: 21,
+        borderRadius: 4,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 16
+    },
+
+    rememberText: {
+        color: '#fff'
     }
 });

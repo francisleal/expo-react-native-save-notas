@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 
 import React, { useEffect, useState } from 'react';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Text, View, TouchableOpacity, FlatList, Alert, Image } from 'react-native';
 
-import IconVoltar from '../../assets/icon/icone.png'
+import Header from '../../components/Header';
+import ButtonAction from '../../components/ButtonAction';
 
 import styles from './styles';
 
@@ -29,14 +31,13 @@ function NoteList({ route }) {
             const dbsavenote = await AsyncStorage.getItem(chaveAsyncaStorage);
 
             if (dbsavenote === null) {
-                console.log('Crie suas Anotações');
+                Alert.alert('Crie suas Anotações');
             } else {
                 setList(JSON.parse(dbsavenote));
             }
 
             // await AsyncStorage.removeItem(chaveAsyncaStorage);
-
-            console.log('handleListarNotas', JSON.parse(dbsavenote));            
+            // console.log('handleListarNotas', JSON.parse(dbsavenote));
 
         } catch (error) {
             Alert.alert(error);
@@ -61,16 +62,10 @@ function NoteList({ route }) {
 
             <StatusBar style={"auto"} />
 
-            <View style={styles.header}>
-                <TouchableOpacity style={styles.buttonVoltar} onPress={navigateSair}>
-                    <Image source={IconVoltar} style={styles.iconVoltar}></Image>
-                </TouchableOpacity>
-
-                <View style={styles.headerText}>
-                    <Text style={styles.headerText1}>{route.params.titulo}</Text>
-                    <Text style={styles.headerText2}>anotação</Text>
-                </View>
-            </View>
+            <Header
+                titulo={route.params.titulo}
+                onPressProps={navigateSair}
+            ></Header>
 
             <View style={styles.section}>
                 <FlatList
@@ -100,11 +95,9 @@ function NoteList({ route }) {
             </View>
 
             <View style={styles.footer}>
-                <TouchableOpacity onPress={navigateNoteAdicionar}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>+</Text>
-                    </View>
-                </TouchableOpacity>
+                <ButtonAction onPressProps={navigateNoteAdicionar} >
+                    <FontAwesome5 name="plus" size={16} color="#ffffff" />
+                </ButtonAction>
             </View>
         </View>
     );

@@ -15,3 +15,7 @@ https://www.youtube.com/watch?v=WVdRjMycfpo
 https://www.npmjs.com/package/@react-native-community/async-storage
 yarn add @react-native-community/async-storage
 
+gerar apk
+https://docs.expo.io/distribution/building-standalone-apps/
+expo build:android -t apk
+

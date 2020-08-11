@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { Text, View, TextInput, ImageBackground, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, TextInput, ImageBackground, TouchableOpacity, Alert, CheckBox } from 'react-native';
 
 import immagemFundo from "../../assets/bg.png";
 import styles from './styles';
@@ -14,7 +14,13 @@ function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
+    const [isSelected, setSelection] = useState(false);
+
     const navigation = useNavigation();
+
+    useEffect(() => {
+        getRemember();
+    }, []);
 
     const handleLogin = async () => {
         const input = { email, senha };
@@ -40,10 +46,16 @@ function Login() {
 
                         await usuarioLogado(usuarioFiltrado[0].email);
 
+                        await handleRemember();
+
                         navigateNote();
                     } else {
-                        Alert.alert('Usuário não encontrado Senha ou E-mail inválido');
+                        Alert.alert('Usuário não encontrado Senha ou E-mail inválido!');
                     }
+                }
+
+                if (registro === null) {
+                    Alert.alert('Crie uma conta para poder logar!');
                 }
 
             } catch (error) {
@@ -57,6 +69,38 @@ function Login() {
             await AsyncStorage.setItem('usuarioLogadoSaveNote', JSON.stringify(usuario));
         } catch (error) {
             Alert.alert('Error - usuario logado');
+        }
+    }
+
+    const handleRemember = async () => {
+
+        const input = { email, senha };
+
+        const remember = await AsyncStorage.getItem('remember');
+
+        if (isSelected) {
+            try {
+                await AsyncStorage.setItem('remember', JSON.stringify(input));
+            } catch (error) {
+                console.log(`handleRemember - ${error}`)
+            }
+
+        } else {
+            if (remember !== null) {
+                await AsyncStorage.removeItem('remember');
+            }
+        }
+    }
+
+    const getRemember = async () => {
+        const remember = await AsyncStorage.getItem('remember');
+
+        if (remember !== null) {
+
+            setEmail(JSON.parse(remember).email);
+            setSenha(JSON.parse(remember).senha);
+
+            setSelection(true);
         }
     }
 
@@ -88,11 +132,13 @@ function Login() {
                 <TextInput
                     style={styles.input}
                     placeholder="E-mail"
+                    value={email}
                     onChangeText={email => setEmail(email.toLowerCase())}
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Senha"
+                    value={senha}
                     secureTextEntry={true}
                     onChangeText={senha => setSenha(senha)}
                 />
@@ -106,6 +152,18 @@ function Login() {
                         Login
                     </Text>
                 </TouchableOpacity>
+
+                <View style={styles.remember}>
+                    <View style={styles.viewCheckBox}>
+                        <CheckBox
+                            value={isSelected}
+                            onValueChange={setSelection}
+                            style={styles.checkBox}
+                        />
+                    </View>
+
+                    <Text style={styles.rememberText}>Lembrar de mim</Text>
+                </View>
 
                 <TouchableOpacity onPress={navigateRegister}>
                     <View style={styles.register}>

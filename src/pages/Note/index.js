@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 
 import React, { useState, useEffect } from 'react';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Text, View, TouchableOpacity, TextInput, Image, Alert } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
 
-import IconVoltar from '../../assets/icon/icone.png'
+import Header from '../../components/Header';
+import ButtonAction from '../../components/ButtonAction';
 
 import styles from './styles';
 
@@ -65,12 +67,12 @@ function Note({ route }) {
                     await AsyncStorage.setItem(dbChaveUsuarioLogado, JSON.stringify(dbAsyncStorage));
                 }
 
+                navigation.navigate('NoteList', { titulo: 'Listar' });
+
             } catch (error) {
                 console.log('dbSaveNote', error);
             }
         }
-
-        navigation.navigate('NoteList', { titulo: 'Listar' });
     }
 
     const editar = () => {
@@ -105,16 +107,10 @@ function Note({ route }) {
 
             <StatusBar style={"auto"} />
 
-            <View style={styles.header}>
-                <TouchableOpacity style={styles.buttonVoltar} onPress={navigateSair}>
-                    <Image source={IconVoltar} style={styles.iconVoltar}></Image>
-                </TouchableOpacity>
-
-                <View style={styles.headerText}>
-                    <Text style={styles.headerText1}>{route.params.titulo}</Text>
-                    <Text style={styles.headerText2}>anotação</Text>
-                </View>
-            </View>
+            <Header
+                titulo={route.params.titulo}
+                onPressProps={navigateSair}
+            ></Header>
 
             <View style={styles.section}>
 
@@ -132,10 +128,9 @@ function Note({ route }) {
                         {
                             route.params.titulo === 'Editar' &&
                             <TouchableOpacity style={styles.label} onPress={() => handleExcluirNote()}>
-                                <Text style={styles.iconExcluir}>x</Text>
+                                <Text style={styles.iconExcluir}><FontAwesome5 name="times" size={16} color="red" /></Text>
                             </TouchableOpacity>
                         }
-
 
                     </View>
 
@@ -152,20 +147,14 @@ function Note({ route }) {
             </View>
 
             <View style={styles.footer}>
-                {
-                    route.params.titulo === 'Editar' ?
-
-                        <TouchableOpacity onPress={handleEditNote}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>edit</Text>
-                            </View>
-                        </TouchableOpacity>
-                        :
-                        <TouchableOpacity onPress={handleSaveNote}>
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>+</Text>
-                            </View>
-                        </TouchableOpacity>
+                {route.params.titulo === 'Editar' ?
+                    <ButtonAction onPressProps={handleEditNote} >
+                        <FontAwesome5 name="pencil-alt" size={16} color="#ffffff" />
+                    </ButtonAction>
+                    :
+                    <ButtonAction onPressProps={handleSaveNote} >
+                        <FontAwesome5 name="sd-card" size={16} color="#ffffff" />
+                    </ButtonAction>
                 }
             </View>
         </View>

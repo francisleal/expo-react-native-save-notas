@@ -23,45 +23,6 @@ export default StyleSheet.create({
         backgroundColor: 'black'
     },
 
-    header: {
-        height: '10%',
-        alignItems: 'center',
-        flexDirection: 'row',
-        backgroundColor: branco,
-        paddingTop: Constants.statusBarHeight + 5,
-    },
-
-    headerText: {
-        flexDirection: 'row',
-        justifyContent: "center",
-        width: '70%',
-    },
-
-    headerText1: {
-        color: 'black',
-        fontWeight: 'bold',
-        fontSize: 18,
-        marginRight: 8,
-    },
-
-    headerText2: {
-        color: primaryColor,
-        fontWeight: 'bold',
-        fontSize: 18,
-    },
-
-    buttonVoltar: {
-        justifyContent: "center",
-        alignItems: 'center',
-        height: 35,
-        width: '15%',
-    },
-
-    iconVoltar: {
-        width: 16,
-        height: 16,
-    },
-
     section: {
         paddingHorizontal: 8,
         height: '90%',
@@ -89,21 +50,6 @@ export default StyleSheet.create({
     footer: {
         flexDirection: 'row-reverse',
         top: -100,
-        right: 40,
+        right: 30,
     },
-
-    button: {
-        backgroundColor: primaryColor,
-        justifyContent: "center",
-        alignItems: 'center',
-        borderRadius: 50,
-        height: 60,
-        width: 60,
-    },
-
-    buttonText: {
-        color: branco,
-        fontSize: 24,
-    },
-
 });

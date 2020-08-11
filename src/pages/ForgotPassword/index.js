@@ -37,7 +37,7 @@ function Forgot() {
 
                     } else if (input.email === usuarioFiltrado[0].email) {
 
-                        Alert.alert(`Sua senha é - ${usuarioFiltrado[0].senha}`);
+                        Alert.alert(`Sua senha é  "${usuarioFiltrado[0].senha}"`);
 
                     } else {
                         Alert.alert('Usuário não encontrado Senha ou E-mail inválido');
