@@ -1,7 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import Constants from 'expo-constants'
 
-const primaryColor = '#04d361';
 const branco = '#fff';
 const card = '#151317e3'
 

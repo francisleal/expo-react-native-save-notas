@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-
 import { FontAwesome5 } from '@expo/vector-icons';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
 function ButtonAction(props) {
     return (
         <TouchableOpacity onPress={props.onPressProps}>
             <View style={styles.button}>
-                {props.children}
+                <FontAwesome5 name={props.icone} size={16} color="#ffffff" />
             </View>
         </TouchableOpacity>
     )

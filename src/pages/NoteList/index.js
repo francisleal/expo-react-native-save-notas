@@ -1,10 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 
 import React, { useEffect, useState } from 'react';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Text, View, TouchableOpacity, FlatList, Alert, Image } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList, Alert } from 'react-native';
 
 import Header from '../../components/Header';
 import ButtonAction from '../../components/ButtonAction';
@@ -35,9 +34,6 @@ function NoteList({ route }) {
             } else {
                 setList(JSON.parse(dbsavenote));
             }
-
-            // await AsyncStorage.removeItem(chaveAsyncaStorage);
-            // console.log('handleListarNotas', JSON.parse(dbsavenote));
 
         } catch (error) {
             Alert.alert(error);
@@ -74,7 +70,6 @@ function NoteList({ route }) {
                     keyExtractor={note => note.id}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item: note }) => (
-
                         <TouchableOpacity onPress={() => navigateNoteEditar(note)}>
                             <View style={styles.cardContainer}>
                                 <View >
@@ -89,15 +84,12 @@ function NoteList({ route }) {
                                 </View>
                             </View>
                         </TouchableOpacity>
-
                     )}
                 />
             </View>
 
             <View style={styles.footer}>
-                <ButtonAction onPressProps={navigateNoteAdicionar} >
-                    <FontAwesome5 name="plus" size={16} color="#ffffff" />
-                </ButtonAction>
+                <ButtonAction onPressProps={navigateNoteAdicionar} icone="plus" />
             </View>
         </View>
     );

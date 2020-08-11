@@ -148,13 +148,9 @@ function Note({ route }) {
 
             <View style={styles.footer}>
                 {route.params.titulo === 'Editar' ?
-                    <ButtonAction onPressProps={handleEditNote} >
-                        <FontAwesome5 name="pencil-alt" size={16} color="#ffffff" />
-                    </ButtonAction>
+                    <ButtonAction onPressProps={handleEditNote} icone="pencil-alt" />
                     :
-                    <ButtonAction onPressProps={handleSaveNote} >
-                        <FontAwesome5 name="sd-card" size={16} color="#ffffff" />
-                    </ButtonAction>
+                    <ButtonAction onPressProps={handleSaveNote} icone="sd-card" />
                 }
             </View>
         </View>

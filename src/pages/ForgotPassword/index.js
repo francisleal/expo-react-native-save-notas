@@ -51,7 +51,6 @@ function Forgot() {
     }
 
 
-
     function navigateLogin() {
         navigation.navigate('Login');
     }
