@@ -128,6 +128,7 @@ function Note({ route }) {
                         {
                             route.params.titulo === 'Editar' &&
                             <TouchableOpacity style={styles.label} onPress={() => handleExcluirNote()}>
+                                <Text style={styles.iconExcluirLabel}>excluir</Text>
                                 <Text style={styles.iconExcluir}><FontAwesome5 name="times" size={16} color="red" /></Text>
                             </TouchableOpacity>
                         }

@@ -25,12 +25,21 @@ export default StyleSheet.create({
     },
 
     label: {
-        width: '12%',
+        width: '20%',
+        flexDirection: 'row',
+        justifyContent: 'center',
     },
 
-    iconExcluir: {      
+    iconExcluir: {
         textAlign: 'center',
         marginTop: 10,
+    },
+
+    iconExcluirLabel: {
+        color: 'red',
+        fontSize: 12,
+        marginTop: 10,
+        marginRight: 5
     },
 
     form: {
@@ -43,7 +52,7 @@ export default StyleSheet.create({
 
     input: {
         color: primaryColor,
-        width: '85%',
+        width: '80%',
         height: 60,
         paddingHorizontal: 24,
         borderRadius: 3,
