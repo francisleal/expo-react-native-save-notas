@@ -120,7 +120,7 @@ function Note({ route }) {
                         <TextInput
                             style={styles.input}
                             placeholder="Título"
-                            placeholderTextColor="#04d361"
+                            placeholderTextColor="#04d3619e"
                             value={titulo}
                             onChangeText={titulo => setTitulo(titulo)}
                         />
@@ -140,6 +140,7 @@ function Note({ route }) {
                         numberOfLines={15}
                         style={styles.textArea}
                         placeholder="Anotação"
+                        placeholderTextColor="#ffffff9e"
                         value={anotacao}
                         onChangeText={anotacao => setAnotacao(anotacao)}
                     />

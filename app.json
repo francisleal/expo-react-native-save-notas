@@ -2,7 +2,8 @@
   "expo": {
     "name": "SaveNote",
     "slug": "save-note",
-    "version": "0.0.3",
+    "privacy": "public",
+    "version": "0.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,7 +18,7 @@
       "**/*"
     ],
     "android": {
-      "package": "com.corporation.savenote",
+      "package": "com.flcorporation.savenote",
       "versionCode": 1
     }
   }

@@ -32,7 +32,12 @@ function NoteList({ route }) {
             if (dbsavenote === null) {
                 Alert.alert('Crie suas Anotações');
             } else {
-                setList(JSON.parse(dbsavenote));
+
+                let listaordenada = JSON.parse(dbsavenote);
+
+                listaordenada.sort((a, b) => a.titulo < b.titulo ? -1 : a.titulo > b.titulo ? 1 : 0);
+
+                setList(listaordenada);
             }
 
         } catch (error) {

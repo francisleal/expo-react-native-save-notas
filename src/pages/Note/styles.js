@@ -56,6 +56,7 @@ export default StyleSheet.create({
         height: 60,
         paddingHorizontal: 24,
         borderRadius: 3,
+        fontWeight: 'bold'
     },
 
     textArea: {
